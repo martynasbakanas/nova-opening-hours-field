@@ -44,7 +44,8 @@ class NovaOpeningHoursField extends Field
             try {
                 OpeningHours::create($data);
             } catch (OpeningHoursException $exception) {
-                throw ValidationException::withMessages([$requestAttribute => $exception->getMessage()]);
+                $message = str_replace('Y-m-d, e.g. `2016-12-25`.', 'm-d, e.g. `12-25`.', $exception->getMessage());
+                throw ValidationException::withMessages([$requestAttribute => $message]);
             }
 
             $model->{$attribute} = $this->isNullValue($request[$requestAttribute]) ? NULL : $value;
