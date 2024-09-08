@@ -74,7 +74,7 @@ export default {
         },
 
         addException() {
-            this.exceptions[getRandomDate()] = [getRandomTimeInterval()];
+            this.exceptions['MM-DD'] = [];
         },
 
         removeException(date) {

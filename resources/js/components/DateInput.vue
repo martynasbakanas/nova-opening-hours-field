@@ -5,7 +5,7 @@
         :class="{ 'border-danger': !isValid }"
         v-model="date"
         :min="getMinDate()"
-        minlength="7"
+        minlength="5"
         maxlength="10"
         required
     />
