@@ -16,7 +16,6 @@ class NovaOpeningHoursField extends Field
     public $component = 'nova-opening-hours-field';
 
     private $allowOverflowMidnight;
-//    private $allowMergeOverlapping;
 
     public function __construct($name, $attribute = null, $resolveCallback = null)
     {
@@ -25,7 +24,6 @@ class NovaOpeningHoursField extends Field
         $this->allowExceptions(TRUE);
         $this->allowOverflowMidnight(FALSE);
         $this->useTextInputs(FALSE);
-//        $this->allowMergeOverlapping(TRUE);
     }
 
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
@@ -37,18 +35,27 @@ class NovaOpeningHoursField extends Field
                 'overflow' => (bool)$this->allowOverflowMidnight,
             ], $value);
 
-//            if ($this->allowMergeOverlapping) {
-//                $data = OpeningHours::mergeOverlappingRanges($data);
-//            }
-
             try {
+                if (isset($data['exceptions'])) {
+                    $cleanData = [];
+                    foreach ($data['exceptions'] as $key => $entry) {
+                        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $key)) {
+                            $cleanData[$key] = $entry;
+                        } elseif (preg_match('/^\d{2}-\d{2}$/', $key)) {
+                            $cleanData[$key] = $entry;
+                        }
+                    }
+                    $data['exceptions'] = $cleanData;
+                }
+
                 OpeningHours::create($data);
+                unset($data['overflow']);
             } catch (OpeningHoursException $exception) {
                 $message = str_replace('Y-m-d, e.g. `2016-12-25`.', 'm-d, e.g. `12-25`.', $exception->getMessage());
                 throw ValidationException::withMessages([$requestAttribute => $message]);
             }
 
-            $model->{$attribute} = $this->isNullValue($request[$requestAttribute]) ? NULL : $value;
+            $model->{$attribute} = $this->isNullValue($request[$requestAttribute]) ? NULL : $data;
         }
     }
 
@@ -67,10 +74,4 @@ class NovaOpeningHoursField extends Field
     {
         return $this->withMeta(['useTextInputs' => $value]);
     }
-
-//    public function allowMergeOverlapping(bool $allowMergeOverlapping)
-//    {
-//        $this->allowMergeOverlapping = $allowMergeOverlapping;
-//        return $this->withMeta(['allowMergeOverlapping' => $this->allowMergeOverlapping]);
-//    }
 }

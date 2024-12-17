@@ -31,8 +31,7 @@ export default {
 
     computed: {
         isValid: function () {
-            const re = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
-            // console.log(this.date, re.test(this.date))
+            const re = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))|(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/;
             return re.test(this.date);
         }
     },
@@ -45,7 +44,10 @@ export default {
 
     watch: {
         date(value) {
-            this.$emit('updateDate', value)
+            if (this.isValid) {
+                this.$emit('updateDate', value)
+            }
+
         },
     },
 }
