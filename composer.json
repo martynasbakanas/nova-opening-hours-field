@@ -8,10 +8,9 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2|^8.0",
-        "laravel/nova": "^4.13",
-        "nova-kit/nova-packages-tool": "^1.2",
-        "spatie/opening-hours": "^2.0|^3.0"
+        "php": "^8.2",
+        "laravel/nova": "^5.0",
+        "spatie/opening-hours": "^4.2"
     },
     "autoload": {
         "psr-4": {

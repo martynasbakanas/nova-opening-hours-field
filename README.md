@@ -1,11 +1,15 @@
 # Nova Opening Hours Field
 
-[![Latest Stable Version](https://poser.pugx.org/sadekd/nova-opening-hours-field/v)](https://packagist.org/packages/sadekd/nova-opening-hours-field)
-[![Total Downloads](https://poser.pugx.org/sadekd/nova-opening-hours-field/downloads)](https://packagist.org/packages/sadekd/nova-opening-hours-field)
-[![License](https://poser.pugx.org/sadekd/nova-opening-hours-field/license)](https://packagist.org/packages/sadekd/nova-opening-hours-field)
-[![PHP Version Require](https://poser.pugx.org/sadekd/nova-opening-hours-field/require/php)](https://packagist.org/packages/sadekd/nova-opening-hours-field)
-
 [Laravel](https://laravel.com) [Nova](https://nova.laravel.com) custom field for [Spatie Opening Hours](https://github.com/spatie/opening-hours)
+
+This fork preserves the Composer package name and PHP namespace of the original package while providing compatibility with Nova 5 and Spatie Opening Hours 4.
+
+## Compatibility
+
+| Package version | PHP | Laravel Nova | Spatie Opening Hours |
+| --- | --- | --- | --- |
+| `^4.0` | `^8.2` | `^5.0` | `^4.2` |
+| `^3.0` | `^7.2 \| ^8.0` | `^4.13` | `^2.0 \| ^3.0` |
 
 ### Index
 
@@ -21,11 +25,14 @@
 
 ## Installation
 
-You can install the package in to a [Laravel](https://laravel.com) app that uses [Nova](https://nova.laravel.com) via composer:
+Add this fork as a VCS repository, then install it using the original Composer package name:
 
 ```bash
-composer require sadekd/nova-opening-hours-field
+composer config repositories.nova-opening-hours-field vcs https://github.com/martynasbakanas/nova-opening-hours-field
+composer require sadekd/nova-opening-hours-field:^4.0
 ```
+
+Version 4 is a breaking release that requires Nova 5, PHP 8.2 or newer, and Spatie Opening Hours 4.
 
 ## Usage
 
